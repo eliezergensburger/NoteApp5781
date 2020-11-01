@@ -72,7 +72,7 @@ public class NoteRepositoryWithExecutor {
     }
 
     private void deleteFirebase(Note note) {
-         
+
     }
 
     public void deleteAllNotes() {

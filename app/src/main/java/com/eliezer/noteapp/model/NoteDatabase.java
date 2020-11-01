@@ -45,9 +45,9 @@ public abstract class NoteDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(()->{
                 NoteDao noteDao = INSTANCE.noteDao();
                 noteDao.deleteAllNotes();
-                noteDao.insert(new Note("Title 1", "Description 1", 1));
-                noteDao.insert(new Note("Title 2", "Description 2", 2));
-                noteDao.insert(new Note("Title 3", "Description 3", 3));
+                noteDao.insert(new Note("1235","Title 1", "Description 1", 1));
+                noteDao.insert(new Note("4567","Title 2", "Description 2", 2));
+                noteDao.insert(new Note("6778","Title 3", "Description 3", 3));
 
             });
 //            new PopulateDbAsyncTask(INSTANCE).execute();
