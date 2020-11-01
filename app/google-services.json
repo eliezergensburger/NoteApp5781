@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "291506173821",
+    "firebase_url": "https://noteapp5781.firebaseio.com",
+    "project_id": "noteapp5781",
+    "storage_bucket": "noteapp5781.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291506173821:android:a02ca4cb599795ae0cbe14",
+        "android_client_info": {
+          "package_name": "com.eliezer.noteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291506173821-dbgrc0a2ib5jfulg1kmvf39q68iei1nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDycmTV72nH39OGidkYYjswTaqZRf4L6nE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291506173821-dbgrc0a2ib5jfulg1kmvf39q68iei1nc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

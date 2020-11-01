@@ -4,18 +4,26 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 public class NoteRepository {
 
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
+    DatabaseReference myRef;
 
     public NoteRepository(Application application) {
         NoteDatabase noteDatabase = NoteDatabase.getInstance(application);
         noteDao = noteDatabase.noteDao();
         allNotes = noteDao.getAllNotes();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("notes");
     }
+
     public void insert(Note note) {
         new InsertNoteAsyncTask(noteDao).execute(note);
     }

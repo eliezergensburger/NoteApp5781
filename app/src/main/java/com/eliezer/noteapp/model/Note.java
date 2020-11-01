@@ -4,16 +4,29 @@ package com.eliezer.noteapp.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties      //firebase
 @Entity(tableName = "note_table")
 public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    public String getSsn() {
+        return ssn;
+    }
 
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
+
+    private String ssn;
     private String title;
     private String description;
     private int priority;
 
+    @Exclude        //firebase
     public int getId() {
         return id;
     }
@@ -46,9 +59,13 @@ public class Note {
         this.priority = priority;
     }
 
-    public Note(String title, String description, int priority) {
+    public Note(String ssn, String title, String description, int priority) {
+        this.ssn = ssn;
         this.title = title;
         this.description = description;
         this.priority = priority;
+    }
+
+    public Note() {
     }
 }
