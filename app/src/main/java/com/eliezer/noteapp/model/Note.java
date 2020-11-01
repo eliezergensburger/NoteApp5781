@@ -2,6 +2,7 @@ package com.eliezer.noteapp.model;
 
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.firebase.database.Exclude;
@@ -59,6 +60,7 @@ public class Note {
         this.priority = priority;
     }
 
+    @Ignore
     public Note(String ssn, String title, String description, int priority) {
         this.ssn = ssn;
         this.title = title;
