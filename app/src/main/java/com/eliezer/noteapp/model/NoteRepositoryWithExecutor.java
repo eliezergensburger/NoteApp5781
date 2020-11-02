@@ -14,16 +14,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoteRepositoryWithExecutor {
     private NoteDao mNoteDao = null;
     private MutableLiveData<List<Note>> mAllNotesDao;
     private MutableLiveData<List<Note>> mAllNotesFirebase;
+    final List<Note> noteList = new ArrayList<>();
 
-    private DatabaseReference myRef=null;
+    private DatabaseReference myRef = null;
 
     private MutableLiveData<Boolean> success;
+
     public NoteRepositoryWithExecutor(Application application) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("notes");
@@ -31,21 +34,29 @@ public class NoteRepositoryWithExecutor {
         NoteDatabase db = NoteDatabase.getInstance(application);
         mNoteDao = db.noteDao();
 
-        getAllnotes();
+        getAllNotesDao();
         getAllNotesFirebase();
     }
 
-    private void getAllnotes() {
-        getAllNotesFirebase();
-        getAllNotesDao();
+    public LiveData<List<Note>> getNotesFirebase() {
+        return mAllNotesFirebase;
+    }
 
+    public LiveData<List<Note>> getNotesDao() {
+        return mAllNotesDao;
     }
 
     private void getAllNotesFirebase() {
         myRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                noteList.clear();
+                for (DataSnapshot child: snapshot.getChildren()) {
+                    // TODO: handle the note
+                    noteList.add(child.getValue(Note.class));
+                }
+                mAllNotesFirebase.setValue(noteList);
             }
 
             @Override
@@ -56,15 +67,11 @@ public class NoteRepositoryWithExecutor {
     }
 
     private void getAllNotesDao() {
-        mAllNotesDao = new MutableLiveData(mNoteDao.getAllNotes());
+        mAllNotesDao.setValue(mNoteDao.getAllNotes().getValue());
     }
 
     public LiveData<Boolean> getStatus() {
         return success;
-    }
-
-    public LiveData<List<Note>> getAllNotes() {
-        return mAllNotesDao;
     }
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
@@ -74,7 +81,7 @@ public class NoteRepositoryWithExecutor {
         insertFirebase(note);
     }
 
-    private void insertFirebase(Note note) {
+    public void insertFirebase(Note note) {
         myRef.child(note.getSsn()).setValue(note)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -108,7 +115,7 @@ public class NoteRepositoryWithExecutor {
         deleteAllNotesDao();
     }
 
-    private void insertDao(Note note) {
+    public void insertDao(Note note) {
         NoteDatabase.databaseWriteExecutor.execute(() -> {
             mNoteDao.insert(note);
         });
