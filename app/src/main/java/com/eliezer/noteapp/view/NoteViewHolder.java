@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eliezer.noteapp.R;
 
 class NoteViewHolder extends RecyclerView.ViewHolder {
-    private final TextView wordItemView;
+    private final TextView noteViewItem;
 
     private NoteViewHolder(View itemView) {
         super(itemView);
-        wordItemView = itemView.findViewById(R.id.textView);
+        noteViewItem = itemView.findViewById(R.id.textView);
     }
 
     public void bind(String text) {
-        wordItemView.setText(text);
+        noteViewItem.setText(text);
     }
 
     static NoteViewHolder create(ViewGroup parent) {
